@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Múltipla Escolha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .quiz-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .correct-answer {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Quiz de Múltipla Escolha</h1>
+        <div id="quiz">
+            <div class="question">1. A Biologia Celular, também chamada de Citologia, é o ramo da Biologia dedicado ao estudo das células e o desenvolvimento tecnológico na área da microscopia permitiu desvendar, em detalhes, as estruturas celulares.
+
+                É correto afirmar que uma célula eucarionte é formada basicamente por</div>
+            <ul class="options" data-correct="1">
+                <li><label><input type="radio" name="q1" value="0"> parede celular, ribossomos e citoplasma.</label></li>
+                <li><label><input type="radio" name="q1" value="0"> citoplasma, material genético e parede celular.</label></li>
+                <li><label><input type="radio" name="q1" value="1"> membrana plasmática, citoplasma e núcleo definido.</label></li>
+                <li><label><input type="radio" name="q1" value="0"> cápsula, membrana plasmática e DNA.</label></li>
+            </ul>
+            
+            <div class="question">2. A organização celular de uma célula eucarionte é mais complexa que a estrutura de uma célula procarionte. Na verdade, acredita-se que a célula eucarionte surgiu a partir de uma célula primitiva, que seria a célula procariótica.
+
+                Células eucariontes apresentam estruturas que atuam similares aos órgãos, realizando as atividades celulares essenciais para a célula. As mitocôndrias, por exemplo</div>
+            <ul class="options" data-correct="1">
+                <li><label><input type="radio" name="q2" value="0"> são responsáveis pela síntese de proteínas na célula.</label></li>
+                <li><label><input type="radio" name="q2" value="1"> realizam a respiração celular, que produz a maior parte de energia necessária para as funções vitais.</label></li>
+                <li><label><input type="radio" name="q2" value="0"> digerem moléculas orgânicas, como carboidratos, lipídios e proteínas.</label></li>
+                <li><label><input type="radio" name="q2" value="0"> atuam no armazenamento, modificação e liberação de substâncias.</label></li>
+            </ul>
+
+
+            <button onclick="checkAnswers()">Verificar Respostas</button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            let score = 0;
+            const questions = document.querySelectorAll('.options');
+            questions.forEach((question, index) => {
+                const correctAnswer = question.dataset.correct;
+                const selectedOption = question.querySelector(`input[name="q${index + 1}"]:checked`);
+                const correctOption = question.querySelector(`input[name="q${index + 1}"][value="${correctAnswer}"]`);
+                
+                if (selectedOption && selectedOption.value === correctAnswer) {
+                    score++;
+                }
+                
+                if (correctOption) {
+                    correctOption.parentElement.classList.add('correct-answer');
+                }
+            });
+
+            const totalQuestions = questions.length;
+            const resultElement = document.getElementById("result");
+            resultElement.innerText = `Você acertou ${score} de ${totalQuestions} questões.`;
+            resultElement.style.display = "block";
+        }
+    </script>
+</body>
+</html>
